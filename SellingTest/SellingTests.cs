@@ -98,6 +98,19 @@ namespace SellingTest
             Assert.False(res.IsSuccess);
             Assert.Equal("Product not found.", res.Message);
         }
-        //-----------------------------------------------------------Edge------------------------------------------------------------------
+        //-----------------------------------------------------------Exception------------------------------------------------------------------
+
+        // text 7: add items pass null see if give "Invalid product details."
+        [Fact]
+        public void AddNullItemIfThrowException()
+        {
+            // Act
+            var exception = Assert.Throws<ArgumentException>(() => _service.AddProduct(null!));
+
+            // Assert
+            Assert.Equal("Invalid product details.", exception.Message);
+        }
+
+        
     }
 }

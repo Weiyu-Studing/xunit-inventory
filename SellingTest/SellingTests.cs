@@ -111,6 +111,19 @@ namespace SellingTest
             Assert.Equal("Invalid product details.", exception.Message);
         }
 
-        
+        // text 8: add items with no Id see if give "Invalid product details."
+        [Fact]
+        public void AddNoIdItem()
+        {
+            // Arrange
+            Product emptyIdProduct = new Product { Id = "", Name = "Air", UnitPrice = 0m, StockQuantity = 99999 };
+
+            // Act
+            var exception = Assert.Throws<ArgumentException>(() => _service.AddProduct(emptyIdProduct));
+
+            // Assert
+            Assert.Equal("Invalid product details.", exception.Message);
+        }
+
     }
 }

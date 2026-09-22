@@ -5,6 +5,7 @@ namespace SellingTest
 {
     public class SellingTests
     {
+        //-----------------------------------------------------------Happy Path------------------------------------------------------------------
         private readonly InventoryOrderService _service = new();
         // test 1 : buy 1 item
         [Fact]
@@ -37,6 +38,34 @@ namespace SellingTest
             Assert.Equal(900m, res.TotalCost);
         }
 
-        
+        // test 3 : buy 66 item see if 20% discount works.
+        [Fact]
+        public void Buy66ItemTryIfHasTwentyDiscount()
+        {
+            // Arrange
+            _service.AddProduct(new Product { Id = "3", Name = "The mystery Gift", UnitPrice = 100m, StockQuantity = 999 });
+
+            // Act
+            var res = _service.ProcessOrder("3", 66, 0);
+
+            // Assert
+            Assert.True(res.IsSuccess);
+            Assert.Equal(5280m, res.TotalCost);
+        }
+        //-----------------------------------------------------------Edge------------------------------------------------------------------
+        // test 4: buy all stock items see if works
+        [Fact]
+        public void BuyAllItem()
+        {
+            // Arrange
+            _service.AddProduct(new Product { Id = "4", Name = "Banana", UnitPrice = 2m, StockQuantity = 66 });
+
+            // Act
+            var res = _service.ProcessOrder("4", 66, 0);
+
+            // Assert
+            Assert.True(res.IsSuccess);
+            Assert.Equal(0, _service.GetProduct("4")!.StockQuantity);
+        }
     }
 }

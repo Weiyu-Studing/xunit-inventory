@@ -79,8 +79,10 @@ namespace SellingTest
             var res = _service.ProcessOrder("5", 2, 0);
 
             // Assert
-            Assert.True(res.IsSuccess);
+            Assert.False(res.IsSuccess);
             Assert.Equal("Insufficient stock.", res.Message);
+            Assert.Equal(1, _service.GetProduct("5")!.StockQuantity);
         }
+
     }
 }

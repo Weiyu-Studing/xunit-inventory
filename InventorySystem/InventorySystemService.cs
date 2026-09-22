@@ -57,7 +57,8 @@
 
             decimal discount = 0.0m;
 
-            if (quantity > 10 && quantity < 50)
+            // here is the bug, origin buy 10 can't has discount, I changed it to >= 10, now it's suit for the rule.
+            if (quantity >= 10 && quantity < 50)
             {
                 discount = 0.10m;
             }

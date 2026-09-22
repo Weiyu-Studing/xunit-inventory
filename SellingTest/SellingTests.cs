@@ -67,5 +67,20 @@ namespace SellingTest
             Assert.True(res.IsSuccess);
             Assert.Equal(0, _service.GetProduct("4")!.StockQuantity);
         }
+
+        // text 5: buy overload items see if give correct "Insufficient stock."
+        [Fact]
+        public void BuyOverloadItemSeeIfBlock()
+        {
+            // Arrange
+            _service.AddProduct(new Product { Id = "5", Name = "Robot", UnitPrice = 39999m, StockQuantity = 1 });
+
+            // Act
+            var res = _service.ProcessOrder("5", 2, 0);
+
+            // Assert
+            Assert.True(res.IsSuccess);
+            Assert.Equal("Insufficient stock.", res.Message);
+        }
     }
 }

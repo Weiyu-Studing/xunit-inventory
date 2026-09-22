@@ -125,5 +125,20 @@ namespace SellingTest
             Assert.Equal("Invalid product details.", exception.Message);
         }
 
+        // text 9: buy 0 quantity item see if works, expected not works and pass .False(res.IsSuccess).
+        [Fact]
+        public void BuyZeroItem_ReturnFail()
+        {
+            // Arrange
+            _service.AddProduct(new Product { Id = "9", Name = "Tiger(Toy)", UnitPrice = 5m, StockQuantity = 100 });
+
+            // Act
+            var res = _service.ProcessOrder("9", 0, 0);
+
+            // Assert
+            Assert.False(res.IsSuccess);
+            Assert.Equal("Quantity must be positive.", res.Message);
+        }
+
     }
 }

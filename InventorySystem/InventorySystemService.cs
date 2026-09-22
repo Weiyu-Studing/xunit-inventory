@@ -45,7 +45,8 @@
 
             var product = _inventory[productId];
 
-            if (quantity < 0)
+            // bug is here, origin quantity < 0 I changed to quantity <= 0, this way make we can't buy 0 quantity item whitch is correct
+            if (quantity <= 0)
             {
                 return new OrderResult { IsSuccess = false, Message = "Quantity must be positive." };
             }

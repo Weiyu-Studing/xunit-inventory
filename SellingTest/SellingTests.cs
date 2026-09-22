@@ -126,6 +126,7 @@ namespace SellingTest
         }
 
         // text 9: buy 0 quantity item see if works, expected not works and pass .False(res.IsSuccess).
+        //***bug 2 test, change InventorySystemService.cs line 49 to quantity <= 0 ***//
         [Fact]
         public void BuyZeroItem_ReturnFail()
         {

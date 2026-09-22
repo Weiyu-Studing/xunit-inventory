@@ -84,5 +84,20 @@ namespace SellingTest
             Assert.Equal(1, _service.GetProduct("5")!.StockQuantity);
         }
 
+        // text 6: buy Incorrect Id items see if give correct "Product not found."
+        [Fact]
+        public void BuyIncorrectIdItem()
+        {
+            // Arrange
+            _service.AddProduct(new Product { Id = "6", Name = "Rabbit", UnitPrice = 20m, StockQuantity = 8 });
+
+            // Act
+            var res = _service.ProcessOrder("233", 2, 0);
+
+            // Assert
+            Assert.False(res.IsSuccess);
+            Assert.Equal("Product not found.", res.Message);
+        }
+        //-----------------------------------------------------------Edge------------------------------------------------------------------
     }
 }
